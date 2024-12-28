@@ -35,16 +35,21 @@ int main() {
 
     auto moveFunction = moveDown;
     while(true) {
-        // Wait for user input
+
+        // Get user input
         char ch = getch();
         if(acceptedMoves.find(ch) != acceptedMoves.end()) {
             moveFunction = acceptedMoves[ch];
         }
 
+        // Flush input buffer to discard any previous characters
+        flushinp();
+
         moveFunction(pos);
         move(pos.y, pos.x);
         addch('#');
-        sleep(1);
+        refresh();
+        usleep(500*1000);
     }
     // End ncurses mode
     endwin();
