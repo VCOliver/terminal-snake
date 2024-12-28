@@ -1,9 +1,9 @@
 #include <iostream>
 #include <unordered_map>
 #include <ncurses.h>
+#include <unistd.h>
 #include "actions/actions.hpp"
 
-using ActionFunction = void (*)(Position&);
 using hash_map = std::unordered_map<char, ActionFunction>;
 
 
@@ -11,6 +11,7 @@ int main() {
     // Initialize ncurses
     initscr();
 	noecho();
+    nodelay(stdscr, TRUE);
     // Get the number of rows and columns
     int rows, cols;
     getmaxyx(stdscr, rows, cols);
@@ -32,15 +33,18 @@ int main() {
         {'d', moveRight}
     };
 
+    auto moveFunction = moveDown;
     while(true) {
         // Wait for user input
         char ch = getch();
         if(acceptedMoves.find(ch) != acceptedMoves.end()) {
-            auto moveFunction = acceptedMoves[ch];
-            moveFunction(pos);
-            move(pos.y, pos.x);
-            addch('#');
+            moveFunction = acceptedMoves[ch];
         }
+
+        moveFunction(pos);
+        move(pos.y, pos.x);
+        addch('#');
+        sleep(1);
     }
     // End ncurses mode
     endwin();

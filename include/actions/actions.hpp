@@ -7,6 +7,8 @@ struct Position {
     int y;
 };
 
+using ActionFunction = void (*)(Position&);
+
 // Actions
 void moveUp(Position &pos);
 
