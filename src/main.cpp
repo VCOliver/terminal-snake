@@ -1,5 +1,26 @@
 #include <iostream>
+#include <unordered_map>
 #include <ncurses.h>
+
+using ActionFunction = void (*)();
+using hash_map = std::unordered_map<char, ActionFunction>;
+
+// Actions
+void moveUp() {
+    printw("Moving up\n");
+}
+
+void moveLeft() {
+    printw("Moving left\n");
+}
+
+void moveDown() {
+    printw("Moving down\n");
+}
+
+void moveRight() {
+    printw("Moving right\n");
+}
 
 int main() {
     // Initialize ncurses
@@ -17,14 +38,23 @@ int main() {
     addch('#');
     // Refresh the screen to show the character
     refresh();
-    // Wait for user input
-    char ch = getch();
-	if(ch == 's') {
-		move(center_row+1, center_col);
-		addch('#');
-	}
 
-	getch();
+    hash_map acceptedMoves = {
+        {'w', moveUp},
+        {'a', moveLeft},
+        {'s', moveDown},
+        {'d', moveRight}
+    };
+
+    while(true) {
+        // Wait for user input
+        char ch = getch();
+        if(acceptedMoves.find(ch) != acceptedMoves.end()) {
+            printw("You pressed %c\n", ch);
+            auto moveFunction = acceptedMoves[ch];
+            moveFunction();
+        }
+    }
     // End ncurses mode
     endwin();
 
