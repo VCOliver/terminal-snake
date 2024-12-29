@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ncurses.h>
+#include <unordered_map>
 
 struct Position {
     int x;
@@ -8,6 +9,7 @@ struct Position {
 };
 
 using ActionFunction = void (*)(Position&);
+using func_map = std::unordered_map<char, ActionFunction>;
 
 // Actions
 void moveUp(Position &pos);

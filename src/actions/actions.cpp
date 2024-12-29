@@ -1,4 +1,4 @@
-#include "../../include/actions/actions.hpp"
+#include "actions/actions.hpp"
 
 // Actions
 void moveUp(Position &pos) {
