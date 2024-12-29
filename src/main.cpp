@@ -6,11 +6,13 @@
 
 // Define the msleep macro
 #define msleep(ms) usleep((ms) * 1000)
+#define WAIT_TIME 400
 
 void init() {
-    initscr();
-    noecho();
-    //nodelay(stdscr, TRUE);
+    initscr(); 
+    noecho(); // Do not display the input
+    nodelay(stdscr, TRUE); // Do not wait for user input
+    curs_set(0); // Do not display the cursor
 }
 
 Position getCenter() {
@@ -43,10 +45,13 @@ int main() {
         // Flush input buffer to discard any previous characters
         flushinp();
 
+        // Clears screen
+        clear();
+
         snake.move(moveFunction);
         snake.update();
         refresh();
-        msleep(500);
+        msleep(WAIT_TIME);
     }
     // End ncurses mode
     endwin();
