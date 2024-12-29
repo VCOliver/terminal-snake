@@ -16,3 +16,14 @@ void moveDown(Position &pos) {
 void moveRight(Position &pos) {
     pos.x++;
 }
+
+void idle(Position &pos) {
+    return;
+}
+
+func_map acceptedMoves = {
+    {'w', moveUp},
+    {'a', moveLeft},
+    {'s', moveDown},
+    {'d', moveRight}
+};

@@ -19,3 +19,7 @@ void moveLeft(Position &pos);
 void moveDown(Position &pos);
 
 void moveRight(Position &pos);
+
+void idle(Position &pos);
+
+extern func_map acceptedMoves;

@@ -2,17 +2,18 @@
 
 Snake::Snake(Position start_pos) {
     this->body = {
-        {'@', start_pos, NULL}, // Head
+        {'@', start_pos, moveDown}, // Head
         {'#', {start_pos.x, start_pos.y-1}, moveDown}
     };
 }
 
-BodyParts Snake::head() {
+BodyParts& Snake::head() {
     return this->body.front();
 }
 
 void Snake::move(move_function moveFunction) {
-    head().nextMove = moveFunction;
+    this->head().nextMove(this->head().pos);
+    this->head().nextMove = idle;
 
     for(auto &part : this->body) {
         part.nextMove(part.pos);

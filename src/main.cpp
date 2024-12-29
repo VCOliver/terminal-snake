@@ -3,7 +3,6 @@
 #include <unistd.h>
 #include "actions/actions.hpp"
 #include "snake/snake.hpp"
-#include "utils/moves.hpp"
 
 // Define the msleep macro
 #define msleep(ms) usleep((ms) * 1000)
@@ -31,11 +30,11 @@ int main() {
     // Refresh the screen to show the character
     refresh();
 
-    auto moveFunction = moveDown;
+    ActionFunction moveFunction = moveDown;
     while(true) {
 
         // Get user input
-        char ch = getch();
+        char ch = getch(); ///! Program dying here
         if(acceptedMoves.find(ch) != acceptedMoves.end()) {
             moveFunction = acceptedMoves[ch];
 

@@ -26,5 +26,5 @@ class Snake {
         std::list<BodyParts> body;
         int size=2;
 
-        BodyParts head();
+        BodyParts& head();
 };
