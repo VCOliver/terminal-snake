@@ -21,10 +21,3 @@ void moveRight(Position &pos) {
 void idle(Position &pos) {
     return;
 }
-
-func_map acceptedMoves = {
-    {'w', moveUp},
-    {'a', moveLeft},
-    {'s', moveDown},
-    {'d', moveRight}
-};

@@ -1,4 +1,4 @@
-#include "command/command.hpp"
+#include "commands/commands.hpp"
 
 void MoveUpCommand::execute(Snake snake) {
     snake.move(moveUp);

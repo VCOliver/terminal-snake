@@ -39,7 +39,6 @@ int main() {
         char ch = getch(); ///! Program dying here
         if(acceptedMoves.find(ch) != acceptedMoves.end()) {
             moveFunction = acceptedMoves[ch];
-
         }
 
 
