@@ -11,7 +11,7 @@ BodyParts& Snake::head() {
     return this->body.front();
 }
 
-void Snake::move(move_function moveFunction) {
+void Snake::move(ActionFunction moveFunction) {
     auto temp = this->head().nextMove;
     this->head().nextMove(this->head().pos);
     this->head().nextMove = idle;

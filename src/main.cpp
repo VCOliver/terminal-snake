@@ -1,8 +1,8 @@
 #include <iostream>
 #include <ncurses.h>
 #include <unistd.h>
-#include "actions/actions.hpp"
 #include "snake/snake.hpp"
+#include "actions/actions.hpp"
 
 // Define the msleep macro
 #define msleep(ms) usleep((ms) * 1000)

@@ -5,12 +5,10 @@
 #include <ncurses.h>
 #include "actions/actions.hpp"
 
-using move_function = std::function<void(Position&)>;
-
 struct BodyParts{
     char symbol;
     Position pos;
-    move_function nextMove;
+    ActionFunction nextMove;
 };
 
 class Snake {
@@ -18,7 +16,7 @@ class Snake {
     public:
         Snake(Position pos);
 
-        void move(move_function moveFunction);
+        void move(ActionFunction moveFunction);
 
         void grow();
 

@@ -1,4 +1,5 @@
 #include "actions/actions.hpp"
+#include "snake/snake.hpp"
 
 // Actions
 void moveUp(Position &pos) {
