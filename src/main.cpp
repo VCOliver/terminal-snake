@@ -42,12 +42,16 @@ int main() {
 
         }
 
+
         // Flush input buffer to discard any previous characters
         flushinp();
 
         // Clears screen
         clear();
 
+        if(ch == 'g') {
+            snake.grow();
+        }
         snake.move(moveFunction);
         snake.update();
         refresh();

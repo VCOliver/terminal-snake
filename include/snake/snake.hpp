@@ -20,6 +20,8 @@ class Snake {
 
         void move(move_function moveFunction);
 
+        void grow();
+
         void update();
 
     private:

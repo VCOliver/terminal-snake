@@ -31,6 +31,13 @@ void Snake::move(move_function moveFunction) {
 
 }
 
+void Snake::grow() {
+    auto &tail = this->body.back();
+    BodyParts new_part = {tail.symbol, tail.pos, idle};
+    this->body.push_back(new_part);
+    this->size++;
+}
+
 void Snake::update() {
     for(auto &part : this->body) {
         ::move(part.pos.y, part.pos.x);
