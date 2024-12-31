@@ -12,7 +12,7 @@ BodyParts& Snake::head() {
 }
 
 void Snake::move(ActionFunction moveFunction) {
-    auto temp = this->head().nextMove;
+    auto prevHeadMove = this->head().nextMove;
     this->head().nextMove(this->head().pos);
     this->head().nextMove = idle;
 
@@ -20,12 +20,13 @@ void Snake::move(ActionFunction moveFunction) {
         part.nextMove(part.pos);
     }
 
-    this->prepNextMove(moveFunction);
+    this->prepNextMove(moveFunction, prevHeadMove);
 
 }
 
-void Snake::prepNextMove(ActionFunction moveFunction) {
-    ActionFunction temp, next = moveFunction;
+void Snake::prepNextMove(ActionFunction moveFunction, ActionFunction prevHeadMove) {
+    auto temp = idle, next = moveFunction;
+    this->head().nextMove = prevHeadMove;
     for(auto &part : this->body) {
         temp = part.nextMove;
         part.nextMove = next;

@@ -35,22 +35,23 @@ int main() {
 
     InputHandler inputHandler = InputHandler(snake);
 
-    ActionFunction moveFunction = moveDown;
     while(true) {
 
         // Get user input
         char ch = getch();
         inputHandler.handleInput(ch);
 
+        // For debugging purposes
+        if(ch == 'g') {
+            snake.grow();
+        }
+
         // Flush input buffer to discard any previous characters
         flushinp();
 
         // Clears screen
         clear();
-
-        if(ch == 'g') {
-            snake.grow();
-        }
+        
         // snake.move(moveFunction);
         snake.update();
         refresh();
