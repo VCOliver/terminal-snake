@@ -27,4 +27,6 @@ class Snake {
         int size=2;
 
         BodyParts& head();
+
+        void prepNextMove(ActionFunction moveFunction);
 };

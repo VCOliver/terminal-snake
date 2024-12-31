@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include "snake/snake.hpp"
 #include "actions/actions.hpp"
+#include "input/inputHandler.hpp"
 
 // Define the msleep macro
 #define msleep(ms) usleep((ms) * 1000)
@@ -32,15 +33,14 @@ int main() {
     // Refresh the screen to show the character
     refresh();
 
+    InputHandler inputHandler = InputHandler(snake);
+
     ActionFunction moveFunction = moveDown;
     while(true) {
 
         // Get user input
-        char ch = getch(); ///! Program dying here
-        if(acceptedMoves.find(ch) != acceptedMoves.end()) {
-            moveFunction = acceptedMoves[ch];
-        }
-
+        char ch = getch();
+        inputHandler.handleInput(ch);
 
         // Flush input buffer to discard any previous characters
         flushinp();
@@ -51,7 +51,7 @@ int main() {
         if(ch == 'g') {
             snake.grow();
         }
-        snake.move(moveFunction);
+        // snake.move(moveFunction);
         snake.update();
         refresh();
         msleep(WAIT_TIME);

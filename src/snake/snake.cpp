@@ -20,15 +20,17 @@ void Snake::move(ActionFunction moveFunction) {
         part.nextMove(part.pos);
     }
 
-    this->head().nextMove = temp;
-    
-    auto next = moveFunction;
+    this->prepNextMove(moveFunction);
+
+}
+
+void Snake::prepNextMove(ActionFunction moveFunction) {
+    ActionFunction temp, next = moveFunction;
     for(auto &part : this->body) {
         temp = part.nextMove;
         part.nextMove = next;
         next = temp;
     }
-
 }
 
 void Snake::grow() {

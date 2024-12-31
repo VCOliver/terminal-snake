@@ -8,12 +8,14 @@ using command_map = std::unordered_map<char, Command*>;
 
 class InputHandler {
     public:
-        InputHandler(Snake snake);
+        InputHandler(Snake& snake);
 
         void handleInput(char ch);
 
     private:
-        Snake snake;
+        Snake& snake; 
+
+        Command* moveCommand;
 
         command_map acceptedCommands;
 
