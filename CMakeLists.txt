@@ -4,7 +4,7 @@
 # -------------------------------------------------------------------
 
 cmake_minimum_required(VERSION 3.25.1)
-project(snake VERSION 0.1.0 LANGUAGES CXX)
+project(snake VERSION 0.3.0 LANGUAGES CXX)
 
 # Set the C++ standard
 set(CMAKE_CXX_STANDARD 17)
@@ -20,9 +20,10 @@ find_package(Curses REQUIRED)
 # Source files
 set(SOURCES
     src/main.cpp
-    src/utils/moves.cpp
     src/actions/actions.cpp
+    src/commands/commands.cpp
     src/snake/snake.cpp
+    src/input/inputHandler.cpp
 )
 
 # Add the executables

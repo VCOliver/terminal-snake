@@ -11,8 +11,8 @@ BodyParts& Snake::head() {
     return this->body.front();
 }
 
-void Snake::move(move_function moveFunction) {
-    auto temp = this->head().nextMove;
+void Snake::move(ActionFunction moveFunction) {
+    auto prevHeadMove = this->head().nextMove;
     this->head().nextMove(this->head().pos);
     this->head().nextMove = idle;
 
@@ -20,15 +20,18 @@ void Snake::move(move_function moveFunction) {
         part.nextMove(part.pos);
     }
 
-    this->head().nextMove = temp;
-    
-    auto next = moveFunction;
+    this->prepNextMove(moveFunction, prevHeadMove);
+
+}
+
+void Snake::prepNextMove(ActionFunction moveFunction, ActionFunction prevHeadMove) {
+    auto temp = idle, next = moveFunction;
+    this->head().nextMove = prevHeadMove;
     for(auto &part : this->body) {
         temp = part.nextMove;
         part.nextMove = next;
         next = temp;
     }
-
 }
 
 void Snake::grow() {

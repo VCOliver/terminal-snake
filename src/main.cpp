@@ -1,8 +1,9 @@
 #include <iostream>
 #include <ncurses.h>
 #include <unistd.h>
-#include "actions/actions.hpp"
 #include "snake/snake.hpp"
+#include "actions/actions.hpp"
+#include "input/inputHandler.hpp"
 
 // Define the msleep macro
 #define msleep(ms) usleep((ms) * 1000)
@@ -32,27 +33,26 @@ int main() {
     // Refresh the screen to show the character
     refresh();
 
-    ActionFunction moveFunction = moveDown;
+    InputHandler inputHandler = InputHandler(snake);
+
     while(true) {
 
         // Get user input
-        char ch = getch(); ///! Program dying here
-        if(acceptedMoves.find(ch) != acceptedMoves.end()) {
-            moveFunction = acceptedMoves[ch];
+        char ch = getch();
+        inputHandler.handleInput(ch);
 
+        // For debugging purposes
+        if(ch == 'g') {
+            snake.grow();
         }
-
 
         // Flush input buffer to discard any previous characters
         flushinp();
 
         // Clears screen
         clear();
-
-        if(ch == 'g') {
-            snake.grow();
-        }
-        snake.move(moveFunction);
+        
+        // snake.move(moveFunction);
         snake.update();
         refresh();
         msleep(WAIT_TIME);
