@@ -2,41 +2,42 @@
 
 #include "snake/snake.hpp"
 
-enum CollisionType {
-    WALL,
-    SNAKE,
-    FOOD,
-    NONE
+class Collision{
+    public:
+        virtual void handleCollision() = 0;
+        virtual ~Collision() = default;
 };
 
-class CollisionObserver {
+class WallCollision : public Collision {
     public:
-        CollisionType checkCollision(Snake snake);
+        void handleCollision() override;
 };
+
+class SelfCollision : public Collision {
+    public:
+        void handleCollision() override;
+};
+
+class FoodCollision : public Collision {
+    public:
+        void handleCollision() override;
+};
+
+enum class CollisionType {
+    WALL,
+    SELF,
+    FOOD
+};
+
+using collision_map = std::unordered_map<CollisionType, Collision*>;
 
 class CollisionHandler {
-    public:
-        virtual void handleCollision(CollisionType type) = 0;
-        virtual ~CollisionHandler() = default;
-};
+    Snake snake;
 
-class WallCollisionHandler : public CollisionHandler {
-    private:
-        const CollisionType type = WALL;
-    public:
-        void handleCollision(CollisionType type) override;
-};
+    collision_map collisionHandlers;
 
-class SnakeCollisionHandler : public CollisionHandler {
-    private:
-        const CollisionType type = SNAKE;
     public:
-        void handleCollision(CollisionType type) override;
-};
+        CollisionHandler(Snake snake);
 
-class FoodCollisionHandler : public CollisionHandler {
-    private:
-        const CollisionType type = FOOD;
-    public:
-        void handleCollision(CollisionType type) override;
+        void handleCollision(CollisionType collisionType);
 };

@@ -1,24 +1,26 @@
 #include "event/collision.hpp"
 #include "screen/screen.hpp"
-#include "snake/snake.hpp"
 
-CollisionType CollisionObserver::checkCollision(Snake snake) {
-    auto head_pos = snake.getHeadPosition();
-    auto screenSize = Screen::getScreenSize();
-    if(head_pos.x < 0 || head_pos.x > screenSize.x || head_pos.y < 0 || head_pos.y > screenSize.y) {
-        return WALL;
-    }
-    return NONE;
+CollisionHandler::CollisionHandler(Snake snake) : snake(snake) {
+    this->collisionHandlers = {
+        {CollisionType::WALL, new WallCollision()},
+        {CollisionType::SELF, new SelfCollision()},
+        {CollisionType::FOOD, new FoodCollision()}
+    };
 }
 
-void WallCollisionHandler::handleCollision(CollisionType type) {
-    if(type == WALL) {
-        Screen::clear();
-        nodelay(stdscr, FALSE); // Wait for user input
-        printw("Game Over! You hit the wall!\n");
-        printw("Press any key to exit...");
-        refresh();
-        getch();
-        Screen::close();
-    }
+void CollisionHandler::handleCollision(CollisionType collisionType) {
+    collisionHandlers[collisionType]->handleCollision();
+}
+
+void WallCollision::handleCollision() {
+    Screen::gameOver();
+}
+
+void SelfCollision::handleCollision() {
+    Screen::gameOver();
+}
+
+void FoodCollision::handleCollision() {
+    return; // Does nothing for now
 }

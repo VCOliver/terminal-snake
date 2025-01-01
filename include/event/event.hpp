@@ -1,45 +1,30 @@
 #pragma once
 
-#include <iostream>
-#include <vector>
-#include <functional>
 #include "collision.hpp"
 
-class EventType {
-    public:
-        virtual CollisionType handleEvent() = 0;
-        virtual ~EventType() = default;
-};
-
-// Alias for the event handler type
-using EventHandler = std::function<void(EventType*)>;
-
 class Event {
-protected:
-    std::vector<EventHandler> listeners;
-
-public:
-
-    // Add a listener to the event
-    void addListener(const EventHandler& handler);
-
-    // Trigger the event, notifying all listeners
-    void trigger(EventType* event);
+    public:
+        virtual ~Event() = default;
 };
 
-class CollisionEvent : public EventType {
-    private:
-        CollisionType type;
-        Snake snake;
+class WallCollisionEvent : public Event {
 
     public:
+        WallCollisionEvent() = default;
+};
 
-        CollisionEvent(Snake snake) : snake(snake) {};
+class SelfCollisionEvent : public Event {
+    public:
+        SelfCollisionEvent() = default;
+};
 
-        CollisionType handleEvent() override;
+class FoodCollisionEvent : public Event {
+    public:
+        FoodCollisionEvent() = default;
+};
 
-        void setCollisionType(CollisionType type);
-
-        CollisionType getCollisionType();
-
+class EventHandler {
+    public:
+        virtual void handleEvent(Event* event) = 0;
+        virtual ~EventHandler() = default;
 };

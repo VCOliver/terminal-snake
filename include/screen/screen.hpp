@@ -9,4 +9,6 @@ namespace Screen {
     void close();
     Position getCenter();
     Position getScreenSize();
+
+    void gameOver();
 }

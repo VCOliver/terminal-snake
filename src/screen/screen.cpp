@@ -26,3 +26,12 @@ Position Screen::getScreenSize() {
     getmaxyx(stdscr, rows, cols);
     return {cols, rows};
 }
+
+void Screen::gameOver() {
+    clear();
+    mvprintw(0, 0, "Game Over!");
+    printw("Press any key to exit...");
+    refresh();
+    getch();
+    close();
+}
