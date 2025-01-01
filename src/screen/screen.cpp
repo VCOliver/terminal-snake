@@ -1,4 +1,5 @@
 #include "screen/screen.hpp"
+#include <ncurses.h>
 
 void Screen::init() {
     initscr(); 

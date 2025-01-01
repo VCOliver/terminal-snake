@@ -1,6 +1,7 @@
 #pragma once
 
 #include "snake/snake.hpp"
+#include "event/event.hpp"
 
 class Collision{
     public:
@@ -31,13 +32,28 @@ enum class CollisionType {
 
 using collision_map = std::unordered_map<CollisionType, Collision*>;
 
-class CollisionHandler {
+class Handler {
+    public:
+        virtual ~Handler() = default;
+};
+
+class CollisionHandler : public Handler {
     Snake snake;
 
-    collision_map collisionHandlers;
+    collision_map collisions;
 
     public:
         CollisionHandler(Snake snake);
 
         void handleCollision(CollisionType collisionType);
+};
+
+class CollisionChecker {
+    Snake& snake;
+    CollisionEvent& onCollisionEvent;
+
+    public:
+        CollisionChecker(Snake& snake, CollisionEvent& onCollisionEvent);
+
+        void checkForCollision();
 };

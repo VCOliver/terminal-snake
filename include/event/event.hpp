@@ -1,30 +1,25 @@
 #pragma once
 
-#include "collision.hpp"
+#include <vector>
+#include <functional>
+#include "snake/snake.hpp"
+
+class Handler;
+enum class CollisionType;
 
 class Event {
-    public:
-        virtual ~Event() = default;
+public:
+    virtual ~Event() = default;
 };
 
-class WallCollisionEvent : public Event {
+class CollisionEvent : public Event {
+    std::vector<Handler*> listeners;
 
-    public:
-        WallCollisionEvent() = default;
-};
+public:
 
-class SelfCollisionEvent : public Event {
-    public:
-        SelfCollisionEvent() = default;
-};
+    CollisionEvent() = default;
 
-class FoodCollisionEvent : public Event {
-    public:
-        FoodCollisionEvent() = default;
-};
+    void addListener(Handler* listener);
 
-class EventHandler {
-    public:
-        virtual void handleEvent(Event* event) = 0;
-        virtual ~EventHandler() = default;
+    void trigger(CollisionType collisionType);
 };

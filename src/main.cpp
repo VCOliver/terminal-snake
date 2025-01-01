@@ -4,6 +4,7 @@
 #include "snake/snake.hpp"
 #include "input/inputHandler.hpp"
 #include "event/event.hpp"
+#include "event/collision.hpp"
 
 // Define the msleep macro
 #define msleep(ms) usleep((ms) * 1000)
@@ -18,8 +19,12 @@ int main() {
     Snake snake = Snake(start_pos);
     snake.update();
 
-    CollisionEvent onCollision;
-    onCollision.addListener(WallCollisionHandler::handleCollision);
+    CollisionHandler collisionHandler = CollisionHandler(snake);
+    CollisionEvent onCollisionEvent;
+
+    onCollisionEvent.addListener(&collisionHandler);
+
+    CollisionChecker collisionChecker = CollisionChecker(snake, onCollisionEvent);
 
     // Refresh the screen to show the character
     refresh();
@@ -43,7 +48,8 @@ int main() {
         // Clears screen
         clear();
         
-        // snake.move(moveFunction);
+        collisionChecker.checkForCollision();
+        
         snake.update();
         refresh();
         msleep(WAIT_TIME);
