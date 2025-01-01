@@ -22,6 +22,8 @@ class Snake {
 
         void update();
 
+        Position getHeadPosition();
+
     private:
         std::list<BodyParts> body;
         int size=2;

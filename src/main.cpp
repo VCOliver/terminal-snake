@@ -1,34 +1,24 @@
 #include <iostream>
-#include <ncurses.h>
 #include <unistd.h>
+#include "screen/screen.hpp"
 #include "snake/snake.hpp"
-#include "actions/actions.hpp"
 #include "input/inputHandler.hpp"
+#include "event/event.hpp"
 
 // Define the msleep macro
 #define msleep(ms) usleep((ms) * 1000)
 #define WAIT_TIME 400
 
-void init() {
-    initscr(); 
-    noecho(); // Do not display the input
-    nodelay(stdscr, TRUE); // Do not wait for user input
-    curs_set(0); // Do not display the cursor
-}
-
-Position getCenter() {
-    int rows, cols;
-    getmaxyx(stdscr, rows, cols);
-    return {cols / 2, rows / 2};
-}
-
 int main() {
     // Initialize ncurses
-    init();
+    Screen::init();
+
     // Get the central coordinates of the screen
-    const Position start_pos = getCenter();
+    const Position start_pos = Screen::getCenter();
     Snake snake = Snake(start_pos);
     snake.update();
+
+    CollisionEvent onCollision;
 
     // Refresh the screen to show the character
     refresh();
@@ -58,7 +48,7 @@ int main() {
         msleep(WAIT_TIME);
     }
     // End ncurses mode
-    endwin();
+    Screen::close();
 
     return 0;
 }
