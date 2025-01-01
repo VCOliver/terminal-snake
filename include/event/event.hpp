@@ -5,12 +5,14 @@
 #include <functional>
 #include "collision.hpp"
 
-enum EventType {
-    COLLISION
+class EventType {
+    public:
+        virtual CollisionType handleEvent() = 0;
+        virtual ~EventType() = default;
 };
 
 // Alias for the event handler type
-using EventHandler = std::function<void(EventType)>;
+using EventHandler = std::function<void(EventType*)>;
 
 class Event {
 protected:
@@ -22,14 +24,19 @@ public:
     void addListener(const EventHandler& handler);
 
     // Trigger the event, notifying all listeners
-    void trigger(EventType event);
+    void trigger(EventType* event);
 };
 
-class CollisionEvent : public Event {
+class CollisionEvent : public EventType {
     private:
         CollisionType type;
+        Snake snake;
 
     public:
+
+        CollisionEvent(Snake snake) : snake(snake) {};
+
+        CollisionType handleEvent() override;
 
         void setCollisionType(CollisionType type);
 

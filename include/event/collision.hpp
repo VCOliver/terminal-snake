@@ -5,7 +5,8 @@
 enum CollisionType {
     WALL,
     SNAKE,
-    FOOD
+    FOOD,
+    NONE
 };
 
 class CollisionObserver {
@@ -21,21 +22,21 @@ class CollisionHandler {
 
 class WallCollisionHandler : public CollisionHandler {
     private:
-        CollisionType type = WALL;
+        const CollisionType type = WALL;
     public:
         void handleCollision(CollisionType type) override;
 };
 
 class SnakeCollisionHandler : public CollisionHandler {
     private:
-        CollisionType type = SNAKE;
+        const CollisionType type = SNAKE;
     public:
         void handleCollision(CollisionType type) override;
 };
 
 class FoodCollisionHandler : public CollisionHandler {
     private:
-        CollisionType type = FOOD;
+        const CollisionType type = FOOD;
     public:
         void handleCollision(CollisionType type) override;
 };

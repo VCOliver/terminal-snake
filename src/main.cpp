@@ -19,6 +19,7 @@ int main() {
     snake.update();
 
     CollisionEvent onCollision;
+    onCollision.addListener(WallCollisionHandler::handleCollision);
 
     // Refresh the screen to show the character
     refresh();

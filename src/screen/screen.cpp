@@ -7,6 +7,10 @@ void Screen::init() {
     curs_set(0); // Do not display the cursor
 }
 
+void Screen::clear() {
+    ::clear();
+}
+
 void Screen::close() {
     endwin();
 }
