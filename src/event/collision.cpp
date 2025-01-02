@@ -1,7 +1,7 @@
 #include "event/collision.hpp"
 #include "screen/screen.hpp"
 
-CollisionHandler::CollisionHandler(Snake snake) : snake(snake) {
+CollisionHandler::CollisionHandler(Snake snake, Food* food) : snake(snake), food(food) {
     this->collisions = {
         {CollisionType::WALL, new WallCollision()},
         {CollisionType::SELF, new SelfCollision()},
@@ -10,6 +10,10 @@ CollisionHandler::CollisionHandler(Snake snake) : snake(snake) {
 }
 
 void CollisionHandler::handleCollision(CollisionType collisionType) {
+    if(collisionType == CollisionType::FOOD) {
+        collisions[collisionType]->handleCollision(snake, food);
+        return;
+    }
     collisions[collisionType]->handleCollision();
 }
 
@@ -25,7 +29,13 @@ void FoodCollision::handleCollision() {
     return; // Does nothing for now
 }
 
-CollisionChecker::CollisionChecker(Snake& snake, CollisionEvent& onCollisionEvent) : snake(snake), onCollisionEvent(onCollisionEvent) {}
+void FoodCollision::handleCollision(Snake& snake, Food* food) {
+    snake.grow();
+    delete &food;
+    food = nullptr;
+}
+
+CollisionChecker::CollisionChecker(Snake& snake, Food* food, CollisionEvent& onCollisionEvent) : snake(snake), food(food), onCollisionEvent(onCollisionEvent) {}
 
 void CollisionChecker::checkForCollision() {
     auto head = snake.getHeadPosition();
@@ -37,5 +47,8 @@ void CollisionChecker::checkForCollision() {
 
     if(snake.isSelfColliding()) {
         onCollisionEvent.trigger(CollisionType::SELF);
+    }
+    if(snake.getHeadPosition() == food->getPosition()) {
+        onCollisionEvent.trigger(CollisionType::FOOD);
     }
 }

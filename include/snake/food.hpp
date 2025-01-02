@@ -18,5 +18,5 @@ class FoodGenerator {
     public:
         FoodGenerator(PositionMatrix& matrix);
 
-        Food generateFood();
+        Food* generateFood();
 };

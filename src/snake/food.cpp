@@ -15,8 +15,8 @@ void Food::placeFood() {
 
 FoodGenerator::FoodGenerator(PositionMatrix& matrix) : matrix(matrix) {}
 
-Food FoodGenerator::generateFood() {
+Food* FoodGenerator::generateFood() {
     Position position = matrix.getRandomFreePosition();
 
-    return Food(position);
+    return new Food(position);
 }

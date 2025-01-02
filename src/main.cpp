@@ -25,7 +25,9 @@ int main() {
 
     FoodGenerator foodGen = FoodGenerator(positionMatrix);
 
-    CollisionHandler collisionHandler = CollisionHandler(snake);
+    Food* food = foodGen.generateFood();
+
+    CollisionHandler collisionHandler = CollisionHandler(snake, food);
     CollisionEvent onCollisionEvent;
 
     onCollisionEvent.addListener(&collisionHandler);
@@ -54,8 +56,10 @@ int main() {
         // Clears screen
         clear();
 
-        Food food = foodGen.generateFood();
-        food.placeFood();
+        if(food == nullptr) {
+            food = foodGen.generateFood();
+            food->placeFood();
+        }
         
         collisionChecker.checkForCollision();
         

@@ -1,11 +1,13 @@
 #pragma once
 
 #include "snake/snake.hpp"
+#include "snake/food.hpp"
 #include "event/event.hpp"
 
 class Collision{
     public:
         virtual void handleCollision() = 0;
+        virtual void handleCollision(Snake& snake, Food* food) {}
         virtual ~Collision() = default;
 };
 
@@ -21,6 +23,7 @@ class SelfCollision : public Collision {
 
 class FoodCollision : public Collision {
     public:
+        void handleCollision(Snake& snake, Food* food) override;
         void handleCollision() override;
 };
 
@@ -39,21 +42,23 @@ class Handler {
 
 class CollisionHandler : public Handler {
     Snake snake;
+    Food* food;
 
     collision_map collisions;
 
     public:
-        CollisionHandler(Snake snake);
+        CollisionHandler(Snake snake, Food* food);
 
         void handleCollision(CollisionType collisionType);
 };
 
 class CollisionChecker {
     Snake& snake;
+    Food* food;
     CollisionEvent& onCollisionEvent;
 
     public:
-        CollisionChecker(Snake& snake, CollisionEvent& onCollisionEvent);
+        CollisionChecker(Snake& snake, Food* food, CollisionEvent& onCollisionEvent);
 
         void checkForCollision();
 };
