@@ -8,14 +8,15 @@ class Food{
     public:
         Food(Position pos);
 
+        void placeFood();
         Position getPosition();
 };
 
 class FoodGenerator {
-    Position screenSize;
+    PositionMatrix& matrix;
 
     public:
-        FoodGenerator(Position screenSize);
+        FoodGenerator(PositionMatrix& matrix);
 
         Food generateFood();
 };

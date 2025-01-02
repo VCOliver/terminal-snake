@@ -1,5 +1,6 @@
 #pragma once
 
+#include <set>
 #include <vector>
 
 #define FREE_SPACE 0
@@ -20,8 +21,12 @@ class PositionMatrix {
 
     Position screenSize;
     Matrix matrix;
+    int matrixSize;
+    std::set<int> availableNumberedPositions;
     Position lastTailPosition;
 
+    void removeNumPosition(Position pos);
+    void addNumPosition(Position pos);
     void setOccupied(Position pos);
     void setFree(Position pos);
 
@@ -31,5 +36,8 @@ public:
     // Checks the Snake's tail position and the head position to update matrix
     void updateMatrix(Snake snake);
     bool isOccupied(Position pos);
+
+    Position getRandomFreePosition();
+
     void reset();
 };

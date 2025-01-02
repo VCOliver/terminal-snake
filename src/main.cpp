@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include "screen/screen.hpp"
 #include "snake/snake.hpp"
+#include "snake/food.hpp"
 #include "input/inputHandler.hpp"
 #include "event/event.hpp"
 #include "event/collision.hpp"
@@ -20,6 +21,9 @@ int main() {
     snake.update();
 
     PositionMatrix positionMatrix = PositionMatrix(Screen::getScreenSize());
+    positionMatrix.updateMatrix(snake);
+
+    FoodGenerator foodGen = FoodGenerator(positionMatrix);
 
     CollisionHandler collisionHandler = CollisionHandler(snake);
     CollisionEvent onCollisionEvent;
@@ -49,12 +53,15 @@ int main() {
 
         // Clears screen
         clear();
+
+        Food food = foodGen.generateFood();
+        food.placeFood();
         
         collisionChecker.checkForCollision();
         
         snake.update();
         positionMatrix.updateMatrix(snake);
-        
+
         refresh();
         msleep(WAIT_TIME);
     }

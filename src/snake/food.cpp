@@ -1,5 +1,6 @@
-#include "snake/food.hpp"
 #include <stdlib.h>
+#include <ncurses.h>
+#include "snake/food.hpp"
 
 Food::Food(Position pos) : pos(pos) {}
 
@@ -7,11 +8,15 @@ Position Food::getPosition() {
     return pos;
 }
 
-FoodGenerator::FoodGenerator(Position screenSize) : screenSize(screenSize) {}
+void Food::placeFood() {
+    ::move(pos.y, pos.x);
+    addch('$');
+}
+
+FoodGenerator::FoodGenerator(PositionMatrix& matrix) : matrix(matrix) {}
 
 Food FoodGenerator::generateFood() {
-    int x = rand() % screenSize.x;
-    int y = rand() % screenSize.y;
+    Position position = matrix.getRandomFreePosition();
 
-    return Food({x, y});
+    return Food(position);
 }
