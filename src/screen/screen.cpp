@@ -1,5 +1,6 @@
 #include "screen/screen.hpp"
 #include <ncurses.h>
+#include <cstdlib>
 
 void Screen::init() {
     initscr(); 
@@ -33,6 +34,7 @@ void Screen::gameOver() {
     mvprintw(0, 0, "Game Over!");
     printw("Press any key to exit...");
     refresh();
+    nodelay(stdscr, FALSE);
     getch();
     close();
 }

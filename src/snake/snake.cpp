@@ -51,3 +51,13 @@ void Snake::update() {
         addch(part.symbol);
     }
 }
+
+bool Snake::isSelfColliding() {
+    auto head_pos = this->getHeadPosition();
+    for(auto it = std::next(this->body.begin()); it != this->body.end(); ++it) {
+        if(it->pos == head_pos) {
+            return true;
+        }
+    }
+    return false;
+}

@@ -34,4 +34,8 @@ void CollisionChecker::checkForCollision() {
     if(head.x < 0 || head.x > screenSize.x || head.y < 0 || head.y > screenSize.y) {
         onCollisionEvent.trigger(CollisionType::WALL);
     }
+
+    if(snake.isSelfColliding()) {
+        onCollisionEvent.trigger(CollisionType::SELF);
+    }
 }

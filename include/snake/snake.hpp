@@ -24,6 +24,8 @@ class Snake {
 
         Position getHeadPosition();
 
+        bool isSelfColliding();
+
     private:
         std::list<BodyParts> body;
         int size=2;
