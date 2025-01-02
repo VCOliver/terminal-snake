@@ -19,6 +19,8 @@ int main() {
     Snake snake = Snake(start_pos);
     snake.update();
 
+    PositionMatrix positionMatrix = PositionMatrix(Screen::getScreenSize());
+
     CollisionHandler collisionHandler = CollisionHandler(snake);
     CollisionEvent onCollisionEvent;
 
@@ -51,6 +53,8 @@ int main() {
         collisionChecker.checkForCollision();
         
         snake.update();
+        positionMatrix.updateMatrix(snake);
+        
         refresh();
         msleep(WAIT_TIME);
     }

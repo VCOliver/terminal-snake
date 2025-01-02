@@ -24,6 +24,8 @@ class Snake {
 
         Position getHeadPosition();
 
+        Position getTailPosition();
+
         bool isSelfColliding();
 
     private:

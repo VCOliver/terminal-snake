@@ -15,6 +15,10 @@ Position Snake::getHeadPosition() {
     return this->head().pos;
 }
 
+Position Snake::getTailPosition() {
+    return this->body.back().pos;
+}
+
 void Snake::move(ActionFunction moveFunction) {
     auto prevHeadMove = this->head().nextMove;
     this->head().nextMove(this->head().pos);
