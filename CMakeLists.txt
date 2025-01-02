@@ -4,7 +4,7 @@
 # -------------------------------------------------------------------
 
 cmake_minimum_required(VERSION 3.25.1)
-project(snake VERSION 0.4.0 LANGUAGES CXX)
+project(snake VERSION 0.6.0 LANGUAGES CXX)
 
 # Set the C++ standard
 set(CMAKE_CXX_STANDARD 17)
@@ -26,6 +26,7 @@ set(SOURCES
     src/actions/actions.cpp
     src/screen/screen.cpp
     src/commands/commands.cpp
+    src/snake/food.cpp
     src/snake/snake.cpp
     src/input/inputHandler.cpp
 )
