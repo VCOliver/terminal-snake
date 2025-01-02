@@ -32,7 +32,7 @@ int main() {
 
     onCollisionEvent.addListener(&collisionHandler);
 
-    CollisionChecker collisionChecker = CollisionChecker(snake, onCollisionEvent);
+    CollisionChecker collisionChecker = CollisionChecker(snake, food, onCollisionEvent);
 
     // Refresh the screen to show the character
     refresh();
@@ -58,8 +58,8 @@ int main() {
 
         if(food == nullptr) {
             food = foodGen.generateFood();
-            food->placeFood();
         }
+        food->placeFood();
         
         collisionChecker.checkForCollision();
         
