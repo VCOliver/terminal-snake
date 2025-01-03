@@ -60,5 +60,5 @@ class CollisionChecker {
     public:
         CollisionChecker(Snake& snake, Food*& food, CollisionEvent& onCollisionEvent);
 
-        void checkForCollision();
+        bool checkForCollision();
 };

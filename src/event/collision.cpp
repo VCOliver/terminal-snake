@@ -37,20 +37,26 @@ void FoodCollision::handleCollision(Snake& snake, Food*& food) {
 
 CollisionChecker::CollisionChecker(Snake& snake, Food*& food, CollisionEvent& onCollisionEvent) : snake(snake), food(food), onCollisionEvent(onCollisionEvent) {}
 
-void CollisionChecker::checkForCollision() {
+bool CollisionChecker::checkForCollision() {
     auto head = snake.getHeadPosition();
     auto screenSize = Screen::getScreenSize();
     auto x_max = screenSize.x-1;
     auto y_max = screenSize.y-1;
+    bool collision = false;
 
     if(head.x < 0 || head.x > x_max || head.y < 0 || head.y >= y_max) {
         onCollisionEvent.trigger(CollisionType::WALL);
+        collision = true;
     }
 
     if(snake.isSelfColliding()) {
         onCollisionEvent.trigger(CollisionType::SELF);
+        collision = true;
     }
     if(snake.getHeadPosition() == food->getPosition()) {
         onCollisionEvent.trigger(CollisionType::FOOD);
+        collision = true;
     }
+
+    return collision;
 }

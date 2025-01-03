@@ -14,6 +14,7 @@ void Screen::clear() {
 }
 
 void Screen::close() {
+    curs_set(1);
     endwin();
 }
 
@@ -36,5 +37,4 @@ void Screen::gameOver() {
     refresh();
     nodelay(stdscr, FALSE);
     getch();
-    close();
 }

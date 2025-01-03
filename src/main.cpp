@@ -56,7 +56,7 @@ int main() {
         }
         food->placeFood();
         
-        collisionChecker.checkForCollision();
+        if(collisionChecker.checkForCollision()) break;
         
         snake.update();
         positionMatrix.updateMatrix(snake);
