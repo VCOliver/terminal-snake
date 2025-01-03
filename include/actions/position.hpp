@@ -6,7 +6,10 @@
 #define FREE_SPACE 0
 #define OCCUPIED_SPACE 1
 
-
+/// @brief Represents a position in the screen
+/// @struct Position
+/// @param x The x coordinate
+/// @param y The y coordinate
 struct Position {
     int x;
     int y;

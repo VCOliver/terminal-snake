@@ -40,8 +40,10 @@ CollisionChecker::CollisionChecker(Snake& snake, Food*& food, CollisionEvent& on
 void CollisionChecker::checkForCollision() {
     auto head = snake.getHeadPosition();
     auto screenSize = Screen::getScreenSize();
+    auto x_max = screenSize.x-1;
+    auto y_max = screenSize.y-1;
 
-    if(head.x < 0 || head.x > screenSize.x || head.y < 0 || head.y > screenSize.y) {
+    if(head.x < 0 || head.x > x_max || head.y < 0 || head.y >= y_max) {
         onCollisionEvent.trigger(CollisionType::WALL);
     }
 
