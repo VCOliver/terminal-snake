@@ -1,7 +1,7 @@
 #include "event/collision.hpp"
 #include "screen/screen.hpp"
 
-CollisionHandler::CollisionHandler(Snake& snake, Food* food) : snake(snake), food(food) {
+CollisionHandler::CollisionHandler(Snake& snake, Food*& food) : snake(snake), food(food) {
     this->collisions = {
         {CollisionType::WALL, new WallCollision()},
         {CollisionType::SELF, new SelfCollision()},
@@ -29,13 +29,13 @@ void FoodCollision::handleCollision() {
     return; // Does nothing for now
 }
 
-void FoodCollision::handleCollision(Snake& snake, Food* food) {
+void FoodCollision::handleCollision(Snake& snake, Food*& food) {
     snake.grow();
     delete food;
     food = nullptr;
 }
 
-CollisionChecker::CollisionChecker(Snake& snake, Food* food, CollisionEvent& onCollisionEvent) : snake(snake), food(food), onCollisionEvent(onCollisionEvent) {}
+CollisionChecker::CollisionChecker(Snake& snake, Food*& food, CollisionEvent& onCollisionEvent) : snake(snake), food(food), onCollisionEvent(onCollisionEvent) {}
 
 void CollisionChecker::checkForCollision() {
     auto head = snake.getHeadPosition();

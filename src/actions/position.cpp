@@ -1,5 +1,7 @@
 #include "actions/position.hpp"
 #include "snake/snake.hpp"
+#include <cstdlib>
+#include <ctime>
 
 bool Position::operator==(const Position& other) const {
     return this->x == other.x && this->y == other.y;
@@ -55,6 +57,11 @@ bool PositionMatrix::isOccupied(Position pos) {
 }
 
 Position PositionMatrix::getRandomFreePosition() {
+    static bool seeded = false;
+    if (!seeded) {
+        srand(static_cast<unsigned int>(time(0)));
+        seeded = true;
+    }
     int randomIndex = rand() % availableNumberedPositions.size();
     auto it = availableNumberedPositions.begin();
     std::advance(it, randomIndex);

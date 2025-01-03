@@ -45,11 +45,6 @@ int main() {
         char ch = getch();
         inputHandler.handleInput(ch);
 
-        // For debugging purposes
-        if(ch == 'g') {
-            snake.grow();
-        }
-
         // Flush input buffer to discard any previous characters
         flushinp();
 
@@ -61,7 +56,7 @@ int main() {
         }
         food->placeFood();
         
-        collisionChecker.checkForCollision(); // Gotta get new Fruit
+        collisionChecker.checkForCollision();
         
         snake.update();
         positionMatrix.updateMatrix(snake);

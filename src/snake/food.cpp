@@ -5,10 +5,11 @@
 Food::Food(Position pos) : pos(pos) {}
 
 Position Food::getPosition() {
-    return pos;
+    return this->pos;
 }
 
 void Food::placeFood() {
+    Position pos = this->getPosition();
     ::move(pos.y, pos.x);
     addch('$');
 }

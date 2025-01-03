@@ -7,7 +7,7 @@
 class Collision{
     public:
         virtual void handleCollision() = 0;
-        virtual void handleCollision(Snake& snake, Food* food) {}
+        virtual void handleCollision(Snake& snake, Food*& food) {}
         virtual ~Collision() = default;
 };
 
@@ -23,7 +23,7 @@ class SelfCollision : public Collision {
 
 class FoodCollision : public Collision {
     public:
-        void handleCollision(Snake& snake, Food* food) override;
+        void handleCollision(Snake& snake, Food*& food) override;
         void handleCollision() override;
 };
 
@@ -42,23 +42,23 @@ class Handler {
 
 class CollisionHandler : public Handler {
     Snake& snake;
-    Food* food;
+    Food*& food;
 
     collision_map collisions;
 
     public:
-        CollisionHandler(Snake& snake, Food* food);
+        CollisionHandler(Snake& snake, Food*& food);
 
         void handleCollision(CollisionType collisionType);
 };
 
 class CollisionChecker {
     Snake& snake;
-    Food* food;
+    Food*& food;
     CollisionEvent& onCollisionEvent;
 
     public:
-        CollisionChecker(Snake& snake, Food* food, CollisionEvent& onCollisionEvent);
+        CollisionChecker(Snake& snake, Food*& food, CollisionEvent& onCollisionEvent);
 
         void checkForCollision();
 };
