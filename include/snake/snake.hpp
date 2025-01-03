@@ -22,6 +22,12 @@ class Snake {
 
         void update();
 
+        Position getHeadPosition();
+
+        Position getTailPosition();
+
+        bool isSelfColliding();
+
     private:
         std::list<BodyParts> body;
         int size=2;

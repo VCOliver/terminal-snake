@@ -11,6 +11,14 @@ BodyParts& Snake::head() {
     return this->body.front();
 }
 
+Position Snake::getHeadPosition() {
+    return this->head().pos;
+}
+
+Position Snake::getTailPosition() {
+    return this->body.back().pos;
+}
+
 void Snake::move(ActionFunction moveFunction) {
     auto prevHeadMove = this->head().nextMove;
     this->head().nextMove(this->head().pos);
@@ -46,4 +54,14 @@ void Snake::update() {
         ::move(part.pos.y, part.pos.x);
         addch(part.symbol);
     }
+}
+
+bool Snake::isSelfColliding() {
+    auto head_pos = this->getHeadPosition();
+    for(auto it = std::next(this->body.begin()); it != this->body.end(); ++it) {
+        if(it->pos == head_pos) {
+            return true;
+        }
+    }
+    return false;
 }
