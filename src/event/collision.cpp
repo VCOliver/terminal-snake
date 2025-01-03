@@ -1,7 +1,7 @@
 #include "event/collision.hpp"
 #include "screen/screen.hpp"
 
-CollisionHandler::CollisionHandler(Snake snake, Food* food) : snake(snake), food(food) {
+CollisionHandler::CollisionHandler(Snake& snake, Food* food) : snake(snake), food(food) {
     this->collisions = {
         {CollisionType::WALL, new WallCollision()},
         {CollisionType::SELF, new SelfCollision()},
@@ -31,7 +31,7 @@ void FoodCollision::handleCollision() {
 
 void FoodCollision::handleCollision(Snake& snake, Food* food) {
     snake.grow();
-    delete &food;
+    delete food;
     food = nullptr;
 }
 

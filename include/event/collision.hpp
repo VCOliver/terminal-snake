@@ -41,13 +41,13 @@ class Handler {
 };
 
 class CollisionHandler : public Handler {
-    Snake snake;
+    Snake& snake;
     Food* food;
 
     collision_map collisions;
 
     public:
-        CollisionHandler(Snake snake, Food* food);
+        CollisionHandler(Snake& snake, Food* food);
 
         void handleCollision(CollisionType collisionType);
 };

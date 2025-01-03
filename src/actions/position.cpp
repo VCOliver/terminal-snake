@@ -37,6 +37,7 @@ void PositionMatrix::setOccupied(Position pos) {
 
 void PositionMatrix::setFree(Position pos) {
     this->matrix[pos.y][pos.x] = FREE_SPACE;
+    addNumPosition(pos);
 }
 
 void PositionMatrix::updateMatrix(Snake snake) {
