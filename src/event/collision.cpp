@@ -41,7 +41,7 @@ void CollisionChecker::checkForCollision() {
     auto head = snake.getHeadPosition();
     auto screenSize = Screen::getScreenSize();
 
-    if(head.x < 0 || head.x > screenSize.x || head.y < 0 || head.y > screenSize.y) {
+    if(head.x < 0 || head.x > screenSize.x || head.y < 0 || head.y >= screenSize.y) {
         onCollisionEvent.trigger(CollisionType::WALL);
     }
 
