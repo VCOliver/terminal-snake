@@ -32,8 +32,23 @@ Position Screen::getScreenSize() {
 
 void Screen::gameOver() {
     clear();
-    mvprintw(0, 0, "Game Over!");
-    printw("Press any key to exit...");
+    int rows, cols;
+    getmaxyx(stdscr, rows, cols);
+    // Calculate start position for centered text
+    int artHeight = gameOverArt.size();
+    int artWidth = gameOverArt[0].size();
+    int startY = (rows - artHeight) / 2;
+    int startX = (cols - artWidth) / 2;
+
+    // Print ASCII art
+    for (size_t i = 0; i < gameOverArt.size(); ++i) {
+        mvprintw(startY + i, startX, "%s", gameOverArt[i].c_str());
+    }
+
+    startY += artHeight + 2; // Move the cursor down
+    std::string exitMessage = "Press any key to exit...";
+    mvprintw(startY, cols/2 - exitMessage.size()/2, exitMessage.c_str());
+
     refresh();
     nodelay(stdscr, FALSE);
     getch();
