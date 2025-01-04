@@ -1,35 +1,32 @@
 #include "core/game.hpp"
 #include "screen/screen.hpp"
-#include "snake/snake.hpp"
-#include "snake/food.hpp"
-#include "actions/position.hpp"
-#include "event/collision.hpp"
-#include "event/event.hpp"
-#include "input/inputHandler.hpp"
 
 // Define the msleep macro
 #define msleep(ms) usleep((ms) * 1000)
 #define WAIT_TIME 400
 
+Game::Game(Position start_pos)
+    : start_pos(start_pos),
+      snake(Snake(start_pos)),
+      inputHandler(snake){}
+
 void Game::init(){
-    this->start_pos = Screen::getCenter();
-    this->snake = Snake(start_pos);
-    snake.update();
+    Screen::init(); // Starts screen
+    snake.update(); // Places snake on screen
 
-    positionMatrix = PositionMatrix(Screen::getScreenSize());
-    positionMatrix.updateMatrix(snake);
+    positionMatrix = new PositionMatrix(Screen::getScreenSize()); // Initializes position matrix
+    positionMatrix->updateMatrix(snake); // Updates position matrix with snake's position
 
-    foodGen = new FoodGenerator(positionMatrix);
-    food = foodGen->generateFood();
+    foodGen = new FoodGenerator(*positionMatrix); // Initializes food generator
+    food = foodGen->generateFood(); // Generates food
+    food->placeFood(); // Places food on screen
 
-    collisionHandler = new CollisionHandler(snake, food);
-    onCollisionEvent.addListener(collisionHandler);
-    collisionChecker = new CollisionChecker(snake, food, onCollisionEvent);
+    collisionHandler = new CollisionHandler(snake, food); // Initializes collision handler
+    onCollisionEvent.addListener(collisionHandler); // Adds collision handler to the event listener
+    collisionChecker = new CollisionChecker(snake, food, onCollisionEvent); // Initializes collision checker
 
-    // Refresh the screen to show the character
+    // Refresh the screen to show the characters
     refresh();
-
-    InputHandler inputHandler = InputHandler(snake);
 }
 
 void Game::run(){
@@ -52,7 +49,7 @@ void Game::run(){
         if(collisionChecker->checkForCollision()) break;
         
         snake.update();
-        positionMatrix.updateMatrix(snake);
+        positionMatrix->updateMatrix(snake);
 
         refresh();
         msleep(WAIT_TIME);
@@ -60,5 +57,10 @@ void Game::run(){
 }
 
 void Game::close(){
+    delete food;
+    delete foodGen;
+    delete positionMatrix;
+    delete collisionHandler;
+    delete collisionChecker;
     Screen::close();
 }

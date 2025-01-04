@@ -55,7 +55,7 @@ bool CollisionChecker::checkForCollision() {
     }
     if(snake.getHeadPosition() == food->getPosition()) {
         onCollisionEvent.trigger(CollisionType::FOOD);
-        collision = true;
+        collision = false;
     }
 
     return collision;

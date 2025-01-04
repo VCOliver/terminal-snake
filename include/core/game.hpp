@@ -4,21 +4,18 @@
 #include <unistd.h>
 #include <ncurses.h>
 
-struct Position;
-class Snake;
-class PositionMatrix;
-class FoodGenerator;
-class Food;
-class CollisionHandler;
-class CollisionEvent;
-class CollisionChecker;
-class InputHandler;
+#include "actions/position.hpp"
+#include "snake/snake.hpp"
+#include "snake/food.hpp"
+#include "event/collision.hpp"
+#include "event/event.hpp"
+#include "input/inputHandler.hpp"
 
 class Game {
     Position start_pos;
     Snake snake;
 
-    PositionMatrix positionMatrix;
+    PositionMatrix* positionMatrix;
 
     FoodGenerator* foodGen;
 
@@ -32,6 +29,7 @@ class Game {
     InputHandler inputHandler;
 
 public:
+    Game(Position start_pos = {40, 12});
     void init();
     void run();
     void close();
