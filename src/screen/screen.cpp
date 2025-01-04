@@ -46,7 +46,8 @@ void Screen::gameOver() {
     }
 
     startY += artHeight + 2; // Move the cursor down
-    mvprintw(startY, cols/2 -10, "Press any key to exit...");
+    std::string exitMessage = "Press any key to exit...";
+    mvprintw(startY, cols/2 - exitMessage.size()/2, exitMessage.c_str());
 
     refresh();
     nodelay(stdscr, FALSE);
