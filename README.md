@@ -8,6 +8,32 @@ A classic Snake game implemented in C++ using the `ncurses` library for terminal
 - A C++17-compatible compiler
 - `ncurses` library
 
+### Installing `ncurses`
+
+Before building the project, ensure `ncurses` is installed on your system:
+
+- **Debian/Ubuntu**:
+  ```bash
+  sudo apt update
+  sudo apt install libncurses5-dev libncursesw5-dev
+  ```
+
+- **Fedora**:
+  ```bash
+    sudo dnf install ncurses-devel
+  ```
+
+- **Arch Linux**:
+  ```bash
+    sudo pacman -S ncurses
+  ```
+
+  - **macOS (via Homebrew)**:
+  ```bash
+    brew install ncurses
+  ```
+
+
 ## Installation
 
 1. Clone the repository:
