@@ -16,6 +16,9 @@ namespace Screen {
 
 
     void init();
+
+    // Add char at Position
+    void addchat(char ch, Position Position, bool food = false);
     void clear();
     void close();
     Position getCenter();

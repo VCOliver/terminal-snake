@@ -4,7 +4,7 @@
 # -------------------------------------------------------------------
 
 cmake_minimum_required(VERSION 3.25.1)
-project(snake VERSION 0.6.0 LANGUAGES CXX)
+project(snake VERSION 0.9.0 LANGUAGES CXX)
 
 # Set the C++ standard
 set(CMAKE_CXX_STANDARD 17)
@@ -20,6 +20,7 @@ find_package(Curses REQUIRED)
 # Source files
 set(SOURCES
     src/main.cpp
+    src/core/game.cpp
     src/event/collision.cpp
     src/event/event.cpp
     src/actions/position.cpp
