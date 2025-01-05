@@ -12,6 +12,12 @@ void Screen::init() {
     init_pair(1, COLOR_RED, COLOR_BLACK); // Define color pair 1 as red text on black background
 }
 
+void Screen::addchat(char ch, Position pos, bool food){
+    if(food) attron(COLOR_PAIR(1) | A_ITALIC | A_BOLD);
+    mvaddch(pos.y, pos.x, ch);
+    if(food) attroff(COLOR_PAIR(1) | A_ITALIC | A_BOLD);
+}
+
 void Screen::clear() {
     ::clear();
 }

@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <ncurses.h>
-#include <locale.h>
-#include <wchar.h>
+#include "screen/screen.hpp"
 
 #include "snake/food.hpp"
 
@@ -14,9 +13,7 @@ Position Food::getPosition() {
 void Food::placeFood() {
     Position pos = this->getPosition();
     ::move(pos.y, pos.x);
-    attron(COLOR_PAIR(1) | A_ITALIC | A_BOLD);
-    addch('O');
-    attroff(COLOR_PAIR(1) | A_ITALIC | A_BOLD);
+    Screen::addchat('O', pos, true);
 }
 
 FoodGenerator::FoodGenerator(PositionMatrix& matrix) : matrix(matrix) {}

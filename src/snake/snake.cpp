@@ -1,4 +1,5 @@
 #include "snake/snake.hpp"
+#include "screen/screen.hpp"
 
 Snake::Snake(Position start_pos) {
     this->body = {
@@ -51,8 +52,7 @@ void Snake::grow() {
 
 void Snake::update() {
     for(auto &part : this->body) {
-        ::move(part.pos.y, part.pos.x);
-        addch(part.symbol);
+        Screen::addchat(part.symbol, part.pos);
     }
 }
 
