@@ -44,7 +44,7 @@ bool CollisionChecker::checkForCollision() {
     auto y_max = screenSize.y-1;
     bool collision = false;
 
-    if(head.x < 0 || head.x > x_max || head.y < 0 || head.y >= y_max) {
+    if(head.x < 0 || head.x > x_max || head.y < 0 || head.y > y_max) {
         onCollisionEvent.trigger(CollisionType::WALL);
         collision = true;
     }
