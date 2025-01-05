@@ -34,5 +34,5 @@ set(SOURCES
 
 # Add the executables
 add_executable(${PROJECT_NAME} ${SOURCES})
-target_link_libraries(${PROJECT_NAME} ${CURSES_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${CURSES_LIBRARIES} ncursesw)
 
